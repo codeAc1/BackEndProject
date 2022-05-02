@@ -1,0 +1,39 @@
+﻿@model Setting
+@{ ViewData["Title"] = "Index"; }
+
+<div class="row">
+    <div class="col-lg-6 h3 mb-4 text-gray-800">
+        <h1>Settings</h1>
+    </div>
+    <div class="col-lg-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Logo</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Setting</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row" style="vertical-align: inherit">1</th>
+                    <td style="vertical-align: inherit">
+                        <img src="~/user/assets/img/logo/@Model.Logo" alt="Alternate Text" style="max-width:50%" />
+                    </td>
+                    <td style="vertical-align: inherit">@Model.Phone</td>
+                    <td style="vertical-align: inherit">@Model.Email</td>
+                    <td style="vertical-align: inherit">@Model.Address</td>
+                    <td style="vertical-align: inherit">
+                        <a class="btn btn-primary" asp-action="Detail">Detail</a>
+                        <a class="btn btn-warning" asp-action="Update">Update</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+

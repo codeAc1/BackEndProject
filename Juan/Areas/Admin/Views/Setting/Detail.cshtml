@@ -1,0 +1,38 @@
+﻿@model Setting
+@{ ViewData["Title"] = "Detail"; }
+
+<div class="row">
+    <div class="col-lg-6 h3 mb-4 text-gray-800">
+        <h1>Setting Detail</h1>
+    </div>
+    <div class="col-lg-8 mx-auto">
+        <div class="card">
+            <div class="card-img-top text-center py-3">
+                <h5 class="card-title font-weight-bold">Logo</h5>
+                <img class="card-img-top" style="max-width:25%; object-fit:contain" src="~/user/assets/img/logo/@Model.Logo" alt="Card image cap">
+            </div>
+            <div class="card-body text-center">
+                <hr />
+                <h5 class="card-title font-weight-bold">Welcome Message</h5>
+                <p>@Model.WelcomeMessage</p>
+                <hr />
+                <h5 class="card-title font-weight-bold">Contact Us Description</h5>
+                @Html.Raw(Model.ContactUsDesc)
+            </div>
+            <div class="card-footer">
+                <h5 class="card-title font-weight-bold">Phone</h5>
+                <p>@Model.Phone</p>
+                <hr />
+                <h5 class="card-title font-weight-bold">Email</h5>
+                <p>@Model.Email</p>
+                <hr />
+                <h5 class="card-title font-weight-bold">Address</h5>
+                <p>@Model.Address</p>
+                <hr />
+                <h5 class="card-title font-weight-bold">Workin Hours</h5>
+                <p>@Model.WorkingHours</p>
+            </div>
+            <a asp-action="Index" class="btn btn-primary">Go Back</a>
+        </div>
+    </div>
+</div>
