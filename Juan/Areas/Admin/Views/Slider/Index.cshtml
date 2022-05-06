@@ -1,0 +1,99 @@
+﻿
+@model IEnumerable<Slider>
+@{
+    ViewData["Title"] = "Index";
+    int count = 0;
+}
+<div class="row justify-content-between align-items-center">
+    <div class="col-lg-2 h3 mb-4 text-gray-800">
+        <h1>Sliders</h1>
+    </div>
+    @if (Model.Count() >= 5)
+    {
+        <div class="col-lg-2 h3 mb-4 text-gray-800">
+            <a asp-controller="Slider" asp-action="index" asp-area="admin" class="btn btn-primary">Create new Slider</a>
+        </div>
+    }
+    else
+    {
+        <div class="col-lg-2 h3 mb-4 text-gray-800">
+            <a asp-controller="Slider" asp-action="Create" asp-area="admin" class="btn btn-primary">Create new Slider</a>
+        </div>
+    }
+
+</div>
+
+<div class="row">
+    <div class="col-lg-12 SliderTable">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Image
+                    </th>
+                    <th>
+                        Subtitle
+                    </th>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        <span>Settings</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (Slider slide in Model)
+                {
+                    count++;
+                <tr>
+                    <th scope="row" style="vertical-align: inherit">@count</th>
+                    <td class="w-25" style="vertical-align: inherit; vertical-align: middle ">
+                        @if (slide.ImageUrl != null)
+                        {
+                            <img class="img-fluid img-thumbnail" src="~/user/assets/img/slider/@slide.ImageUrl" alt="Alternate Text" style="max-height:120px; max-width:240px" />
+                        }
+                        else
+                        {
+                            <span class="text-danger">Image Empty</span>
+                        }
+
+                    </td>
+                    <td style="vertical-align: inherit">@slide.SlideSubtitle</td>
+                    <td style="vertical-align: inherit">@slide.SlideTitle</td>
+                    <td class="w-25" style="vertical-align: inherit">
+                        @Html.Raw(slide.SlideDesc)
+                    </td>
+                    
+                    <td class="w-25" style="vertical-align: inherit">
+                        <a class="btn btn-primary" asp-action="Detail" asp-route-id="@slide.Id">Detail</a>
+                        <a class="btn btn-warning" asp-action="Update" asp-route-id="@slide.Id">Update</a>
+                        @if (Model.Count() > 1)
+                        {
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@slide.Id">Delete</a>
+                        }
+                        
+
+                    </td>
+
+
+                </tr>
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+
+
+

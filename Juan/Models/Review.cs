@@ -16,7 +16,7 @@ namespace Juan.Models
         public string Message { get; set; }
         [Required, Range(1, 5)]
         public int Star { get; set; }
-        public int ProductId { get; set; }
+        public int? ProductId { get; set; }
         public Product Product { get; set; }
     }
 }

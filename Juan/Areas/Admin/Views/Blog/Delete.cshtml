@@ -1,0 +1,90 @@
+﻿
+@model Blog
+@{ ViewData["Title"] = "Detail";
+
+}
+
+<div class="row">
+    <div class="col-lg-6 h3 mb-4 text-gray-800">
+        <h1>Setting Detail</h1>
+    </div>
+    <div class="col-lg-8 mx-auto">
+        <div class="card">
+            <div class="card-img-top text-center pt-1">
+                <h5 class="card-title font-weight-bold">Blog Image</h5>
+                @if (Model.ImageUrl != null)
+                {
+                    <img class="card-img-top" style="max-width:50%; object-fit:contain" src="~/user/assets/img/blog/@Model.ImageUrl" alt="Card image cap">
+                }
+                else
+                {
+                    <span class="text-danger">Main image silinib</span>
+                }
+            </div>
+            <div class="card-body text-center">
+                <hr />
+                <h5 class="card-title font-weight-bold">Blog Title</h5>
+                <h3 class="text-success">@Model.Title</h3>
+                <hr />
+                <h5 class="card-title font-weight-bold">Main Description</h5>
+                @Html.Raw(Model.MainDes)
+                <hr />
+                <h5 class="card-title font-weight-bold">Description</h5>
+                @Html.Raw(Model.Desc)
+            </div>
+            <div class="card-footer">
+                <h5 class="card-title font-weight-bold">Publisher Fulname</h5>
+                <p>@Model.AppUser.Name @Model.AppUser.SurName</p>
+                <hr />
+                <h5 class="card-title font-weight-bold">Category</h5>
+                <p>@Model.Category.Name</p>
+                <hr />
+                <h5 class="card-title font-weight-bold">Product Tags</h5>
+                <p>
+                    @string.Join(", ", Model.BlogTags.Select(x => x.Tag.Name))
+                </p>
+                <hr />
+                <h5 class="card-title font-weight-bold">Created At</h5>
+                <p>@Model.CreatedAt</p>
+                <hr />
+                <h5 class="card-title font-weight-bold">Last Updated At</h5>
+                @if (Model.UpdatedAt != null)
+                {
+                    <p>@Model.UpdatedAt</p>
+                }
+                else
+                {
+                    <p>haven't updated yet</p>
+                }
+                <hr />
+                <h5 class="card-title font-weight-bold">Status</h5>
+                @if (Model.IsDeleted)
+                {
+                    <p class="text-danger">Deactive</p>
+                }
+                else
+                {
+                    <p class="text-success">Active</p>
+
+                }
+            </div>
+            <div class="card-footer d-flex justify-content-between p-3 ">
+
+                <a class="btn btn-primary" asp-action="Index" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex">Go To List</a>
+
+                @if (Model.IsDeleted)
+                {
+                    <a class="btn btn-success" asp-action="DeleteRestore" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex" asp-route-id="@Model.Id">Restore</a> }
+                else
+                {
+                    <a class="btn btn-danger" asp-action="DeleteRestore" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex" asp-route-id="@Model.Id">Delete</a>
+                }
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -12,5 +12,6 @@ namespace Juan.Models
         public string Name { get; set; }
 
         public IEnumerable<ProductTag> ProductTags { get; set; }
+        public IEnumerable<BlogTag> BlogTags { get; set; }
     }
 }

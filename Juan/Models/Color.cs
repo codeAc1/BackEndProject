@@ -11,5 +11,6 @@ namespace Juan.Models
         [StringLength(255), Required]
         public string Name { get; set; }
         public IEnumerable<ProductColor> ProductColors { get; set; }
+        
     }
 }

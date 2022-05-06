@@ -10,6 +10,9 @@ namespace Juan.Models
     {
         [Required]
         public int Name { get; set; }
-        public IEnumerable<ProductSize> ProductSizes { get; set; }
+        public List<ProductSize> ProductSizes { get; set; }
+        
+
+
     }
 }

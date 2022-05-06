@@ -25,5 +25,13 @@ namespace Juan.Helpers
                 File.Delete(path);
             }
         }
+        public enum Roles
+        {
+            Admin,
+            Maneger,
+            Member,
+            Publisher
+
+        }
     }
 }

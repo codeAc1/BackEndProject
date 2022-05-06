@@ -73,6 +73,20 @@
                 </div>
             </li>
             <li class="nav-item">
+                <a class="nav-link collapsed" href="~/admin/#" data-toggle="collapse" data-target="#collapseSLIDER"
+                   aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Sliders</span>
+                </a>
+                <div id="collapseSLIDER" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Sliders:</h6>
+                        <a class="collapse-item" asp-controller="Slider" asp-action="index">Slider List</a>
+
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="~/admin/#" data-toggle="collapse" data-target="#collapseCustomizations"
                    aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
@@ -97,11 +111,11 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Brands:</h6>
                         <a class="collapse-item" asp-controller="Brand" asp-action="index">Brand List</a>
-                        
+
                     </div>
                 </div>
             </li>
-           
+
             <li class="nav-item">
                 <a class="nav-link collapsed" href="~/admin/#" data-toggle="collapse" data-target="#collapseCAT"
                    aria-expanded="true" aria-controls="collapseTwo">
@@ -126,6 +140,20 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Products:</h6>
                         <a class="collapse-item" asp-controller="Product" asp-action="index">Products List</a>
+
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="~/admin/#" data-toggle="collapse" data-target="#collapseBlog"
+                   aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Blog</span>
+                </a>
+                <div id="collapseBlog" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Blogs:</h6>
+                        <a class="collapse-item" asp-controller="Blog" asp-action="index">Blog List</a>
 
                     </div>
                 </div>

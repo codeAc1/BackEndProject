@@ -5,6 +5,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20220502150308_SliderTableCreate.cs" />
+    <Compile Remove="Migrations\20220502150308_SliderTableCreate.Designer.cs" />
+    <Compile Remove="Migrations\20220504123441_stocktable.cs" />
+    <Compile Remove="Migrations\20220504123441_stocktable.Designer.cs" />
+    <Compile Remove="Migrations\20220504123721_stocktable.cs" />
+    <Compile Remove="Migrations\20220504123721_stocktable.Designer.cs" />
+    <Compile Remove="Migrations\20220504125921_addstocktable.cs" />
+    <Compile Remove="Migrations\20220504125921_addstocktable.Designer.cs" />
+    <Compile Remove="Migrations\20220504130121_addstocktable2.cs" />
+    <Compile Remove="Migrations\20220504130121_addstocktable2.Designer.cs" />
+    <Compile Remove="Migrations\20220504171003_sizeaddproduct.cs" />
+    <Compile Remove="Migrations\20220504171003_sizeaddproduct.Designer.cs" />
+    <Compile Remove="Migrations\20220505083339_user.cs" />
+    <Compile Remove="Migrations\20220505083339_user.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.24" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.24" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.24" />
@@ -18,7 +35,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="ViewModels\" />
+    <Folder Include="wwwroot\user\assets\img\slider\" />
   </ItemGroup>
 
 </Project>

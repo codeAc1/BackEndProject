@@ -1,0 +1,70 @@
+﻿
+@model Product
+@{ ViewData["Title"] = "Detail";
+  
+    }
+
+<div class="row">
+    <div class="col-lg-6 h3 mb-4 text-gray-800">
+        <h1>Setting Detail</h1>
+    </div>
+    <div class="col-lg-8 mx-auto">
+        <div class="card">
+            <div class="card-img-top text-center pt-1">
+                <h5 class="card-title font-weight-bold">Main Image</h5>
+                @if (Model.MainImage != null)
+                {
+                    <img class="card-img-top" style="max-width:25%; object-fit:contain" src="~/user/assets/img/product/@Model.MainImage" alt="Card image cap">
+                }
+                else
+                {
+                    <span class="text-danger">Main image silinib</span>
+                }
+                <hr />
+                <h5 class="card-title font-weight-bold">Product Images</h5>
+                @foreach (ProductImage productImage in Model.ProductImages)
+                {
+                    <img class="card-img-top" style="max-width:15%;border:1px solid gray; border-radius:5px; object-fit:contain" src="~/user/assets/img/product/@productImage.Image" alt="Card image cap">
+                }
+
+            </div>
+            <div class="card-body text-center">
+                <hr />
+                <h5 class="card-title font-weight-bold">Title</h5>
+                <p>@Model.Title</p>
+                <hr />
+                <h5 class="card-title font-weight-bold">Description</h5>
+                @Html.Raw(Model.Description)
+            </div>
+            <div class="card-footer">
+                <h5 class="card-title font-weight-bold">Price</h5>
+                <p>@Model.Price</p>
+                <hr />
+                <h5 class="card-title font-weight-bold">Discount Price</h5>
+                <p>@Model.DiscountPrice</p>
+                <hr />
+                <h5 class="card-title font-weight-bold">Product Brand</h5>
+                <p>@Model.Brand.Name</p>
+                <hr />
+                <h5 class="card-title font-weight-bold">Category</h5>
+                <p>@Model.Category.Name</p>
+                <hr />
+                <h5 class="card-title font-weight-bold">Product Tags</h5>
+                <p>
+                    @string.Join(", ", Model.ProductTags.Select(x => x.Tag.Name))
+                </p>
+                <hr />
+                <h5 class="card-title font-weight-bold">Product Colors</h5>
+                <p>
+                    @string.Join(", ", Model.ProductColors.Select(x => x.Color.Name))
+                </p>
+                <hr />
+                <h5 class="card-title font-weight-bold">Product Sizes</h5>
+                <p>
+                    @string.Join(", ", Model.productSizes.Select(x => x.Size.Name))
+                </p>
+            </div>
+            <a asp-action="Index" class="btn btn-primary">Go Back</a>
+        </div>
+    </div>
+</div>

@@ -23,5 +23,11 @@ namespace Juan.DAL
         public DbSet<ProductTag> ProductTags { get; set; }
         public DbSet<ProductColor> ProductColors { get; set; }
         public DbSet<ProductSize> ProductSizes { get; set; }
+        public DbSet<Slider> Sliders { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<BlogTag> BlogTags { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+
+
     }
 }

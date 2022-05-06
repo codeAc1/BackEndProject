@@ -12,5 +12,6 @@ namespace Juan.Models
         public Product Product { get; set; }
         public Nullable<int> SizeId { get; set; }
         public Size Size { get; set; }
+        
     }
 }
