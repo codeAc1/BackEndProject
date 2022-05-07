@@ -1,6 +1,8 @@
 ﻿using Juan.DAL;
 using Juan.Extensions;
+using Juan.Helpers;
 using Juan.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,9 +16,11 @@ namespace Juan.Areas.Admin.Controllers
     public class BrandController : Controller
     {
         private readonly AppDbContext _context;
-        public BrandController(AppDbContext context)
+        private readonly IWebHostEnvironment _env;
+        public BrandController(AppDbContext context, IWebHostEnvironment env)
         {
             _context = context;
+            _env = env;
         }
         public async Task<IActionResult> Index(bool? status, int page = 1)
         {
@@ -52,8 +56,6 @@ namespace Juan.Areas.Admin.Controllers
                 return View();
             }
 
-            //tag.Name = tag.Name.Trim();
-
             if (brand.Name.CheckString())
             {
                 ModelState.AddModelError("Name", "Yalniz Herf Ola Biler");
@@ -64,6 +66,28 @@ namespace Juan.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("Name", "Alreade Exists");
                 return View();
+            }
+
+            if (brand.ImageFile != null)
+            {
+                if (!brand.ImageFile.CheckFileContentType("image/png"))
+                {
+                    ModelState.AddModelError("ImageFile", "Secilen Seklin Novu Uygun deyil");
+                    return View();
+                }
+
+                if (!brand.ImageFile.CheckFileSize(3000))
+                {
+                    ModelState.AddModelError("ImageFile", "Secilen Seklin Olcusu Maksimum 300 Kb Ola Biler");
+                    return View();
+                }
+
+                brand.ImageUrl = brand.ImageFile.CreateFile(_env, "user", "assets", "img", "brand");
+            }
+            else
+            {
+                ModelState.AddModelError("ImageFile", "Main Sekil Mutleq Secilmelidir");
+                return View(brand);
             }
             brand.CreatedAt = DateTime.UtcNow.AddHours(4);
             await _context.Brands.AddAsync(brand);
@@ -113,6 +137,28 @@ namespace Juan.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("Name", "Alreade Exists");
                 return View(brand);
+            }
+
+            if (brand.ImageFile != null)
+            {
+                if (!brand.ImageFile.CheckFileContentType("image/png"))
+                {
+                    ModelState.AddModelError("ImageFile", "Secilen Seklin Novu Uygun deyil ancaq png secile biler");
+                    return View();
+                }
+
+                if (!brand.ImageFile.CheckFileSize(300))
+                {
+                    ModelState.AddModelError("ImageFile", "Secilen Seklin Olcusu Maksimum 3 Kb Ola Biler");
+                    return View(brand);
+                }
+                if (dbBrand.ImageUrl!=null)
+                {
+                    Helper.DeleteFile(_env, dbBrand.ImageUrl, "user", "assets", "img", "brand");
+                }
+                
+
+                dbBrand.ImageUrl = brand.ImageFile.CreateFile(_env, "user", "assets", "img", "brand");
             }
 
             dbBrand.Name = brand.Name;

@@ -13,7 +13,7 @@ namespace Juan.Models
         [StringLength(255), Required]
         public string Title { get; set; }
         [Column(TypeName = "money")]
-        public double DiscountPrice { get; set; }
+        public Nullable<double> DiscountPrice { get; set; }
         [Column(TypeName = "money")]
         public double Price { get; set; }
         [StringLength(1000)]

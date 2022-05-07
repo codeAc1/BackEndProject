@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@inject LayoutService layoutService
+@{
+    Setting setting = await layoutService.GetSetting();
+    List<BasketVM> basketVMs = await layoutService.GetBasket();
+
+    }
+<!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
 <!-- Mirrored from demo.hasthemes.com/juan-preview-v1/juan/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 07 Mar 2021 22:36:22 GMT -->
@@ -43,7 +49,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-6">
                             <div class="welcome-message">
-                                <p>Welcome to Juan online store</p>
+                                <p>@setting.WelcomeMessage</p>
                             </div>
                         </div>
                         <div class="col-lg-6 text-right">
@@ -80,7 +86,7 @@
                         <div class="col-lg-2">
                             <div class="logo">
                                 <a href="index.html">
-                                    <img src="~/user/assets/img/logo/logo.png" alt="">
+                                    <img src="~/user/assets/img/logo/@setting.Logo" alt="">
                                 </a>
                             </div>
                         </div>
@@ -247,7 +253,7 @@
                         <div class="mobile-main-header">
                             <div class="mobile-logo">
                                 <a href="index.html">
-                                    <img src="~/user/assets/img/logo/logo.png" alt="Brand Logo">
+                                    <img src="~/user/assets/img/logo/@setting.Logo" alt="Brand Logo">
                                 </a>
                             </div>
                             <div class="mobile-menu-toggler">
@@ -284,9 +290,9 @@
                             <h5 class="widget-title">My Account</h5>
                             <div class="widget-body">
                                 <ul class="location-wrap">
-                                    <li><i class="ion-ios-location-outline"></i>184 Main Rd E, St Albans VIC 3021, Australia</li>
-                                    <li><i class="ion-ios-email-outline"></i>Mail Us: <a href="mailto:yourmail@gmail.com">yourmail@gmail.com</a></li>
-                                    <li><i class="ion-ios-telephone-outline"></i>Phone: <a href="%2b0025425456554">+ 00 254 254565</a></li>
+                                    <li><i class="ion-ios-location-outline"></i>@setting.Address</li>
+                                    <li><i class="ion-ios-email-outline"></i>Mail Us: <a href="@setting.Email">@setting.Email</a></li>
+                                    <li><i class="ion-ios-telephone-outline"></i>Phone: <a href="@setting.Phone">@setting.Phone</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -391,77 +397,7 @@
     <div class="offcanvas-minicart-wrapper">
         <div class="minicart-inner">
             <div class="offcanvas-overlay"></div>
-            <div class="minicart-inner-content">
-                <div class="minicart-close">
-                    <i class="ion-android-close"></i>
-                </div>
-                <div class="minicart-content-box">
-                    <div class="minicart-item-wrapper">
-                        <ul>
-                            <li class="minicart-item">
-                                <div class="minicart-thumb">
-                                    <a href="product-details.html">
-                                        <img src="~/user/assets/img/cart/cart-1.jpg" alt="product">
-                                    </a>
-                                </div>
-                                <div class="minicart-content">
-                                    <h3 class="product-name">
-                                        <a href="product-details.html">Flowers bouquet pink for all flower lovers</a>
-                                    </h3>
-                                    <p>
-                                        <span class="cart-quantity">1 <strong>&times;</strong></span>
-                                        <span class="cart-price">$100.00</span>
-                                    </p>
-                                </div>
-                                <button class="minicart-remove"><i class="ion-android-close"></i></button>
-                            </li>
-                            <li class="minicart-item">
-                                <div class="minicart-thumb">
-                                    <a href="product-details.html">
-                                        <img src="~/user/assets/img/cart/cart-2.jpg" alt="product">
-                                    </a>
-                                </div>
-                                <div class="minicart-content">
-                                    <h3 class="product-name">
-                                        <a href="product-details.html">Jasmine flowers white for all flower lovers</a>
-                                    </h3>
-                                    <p>
-                                        <span class="cart-quantity">1 <strong>&times;</strong></span>
-                                        <span class="cart-price">$80.00</span>
-                                    </p>
-                                </div>
-                                <button class="minicart-remove"><i class="ion-android-close"></i></button>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="minicart-pricing-box">
-                        <ul>
-                            <li>
-                                <span>sub-total</span>
-                                <span><strong>$300.00</strong></span>
-                            </li>
-                            <li>
-                                <span>Eco Tax (-2.00)</span>
-                                <span><strong>$10.00</strong></span>
-                            </li>
-                            <li>
-                                <span>VAT (20%)</span>
-                                <span><strong>$60.00</strong></span>
-                            </li>
-                            <li class="total">
-                                <span>total</span>
-                                <span><strong>$370.00</strong></span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="minicart-button">
-                        <a href="cart.html"><i class="fa fa-shopping-cart"></i> view cart</a>
-                        <a href="cart.html"><i class="fa fa-share"></i> checkout</a>
-                    </div>
-                </div>
-            </div>
+            @await Html.PartialAsync("_BasketPartial", basketVMs)
         </div>
     </div>
     <!-- offcanvas mini cart end -->
@@ -469,6 +405,15 @@
     <div class="scroll-top not-visible">
         <i class="fa fa-angle-up"></i>
     </div>
+    <!-- Quick view modal start -->
+    <div class="modal" id="productQuickModal">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+
+            </div>
+        </div>
+    </div>
+    <!-- Quick view modal end -->
     <!-- Scroll to Top End -->
     <!--=======================Javascript============================-->
     <!--=== All Vendor Js ===-->
@@ -477,6 +422,7 @@
     <script src="~/user/assets/js/plugins.js"></script>
     <!--=== Active Js ===-->
     <script src="~/user/assets/js/active.js"></script>
+    <script src="~/user/assets/js/custom.js" asp-append-version="true"></script>
 </body>
 
 

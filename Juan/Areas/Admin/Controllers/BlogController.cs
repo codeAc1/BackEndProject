@@ -1,5 +1,6 @@
 ﻿using Juan.DAL;
 using Juan.Extensions;
+using Juan.Helpers;
 using Juan.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,19 +34,20 @@ namespace Juan.Areas.Admin.Controllers
             ViewBag.Status = status;
 
 
-            IQueryable<Blog> products = _context.Blogs
+            IQueryable<Blog> blogs = _context.Blogs
                 .Include(b => b.Category)
                 .Include(b => b.BlogTags).ThenInclude(bt => bt.Tag)
                 .Include(b=>b.AppUser)
+                .Where(b=>b.AppUser.UserName==User.Identity.Name)
                 .OrderByDescending(c => c.Id)
                 .AsQueryable();
 
             if (status != null)
-                products = products.Where(c => c.IsDeleted == status);
+                blogs = blogs.Where(c => c.IsDeleted == status);
 
             ViewBag.PageIndex = page;
-            ViewBag.PageCount = Math.Ceiling((double)products.Count() / 5);
-            return View(await products.Skip((page - 1) * 5).Take(5).ToListAsync());
+            ViewBag.PageCount = Math.Ceiling((double)blogs.Count() / 5);
+            return View(await blogs.Skip((page - 1) * 5).Take(5).ToListAsync());
         }
 
         public async Task<IActionResult> Create(bool? status, int page = 1)
@@ -70,17 +72,18 @@ namespace Juan.Areas.Admin.Controllers
 
             AppUser appUser = _userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
 
+            if (appUser == null)
+            {
+                ModelState.AddModelError("", "Siz Login Olmamisiz");
+                return View(blog);
+            }
             if (!((await _userManager.GetRolesAsync(appUser))[0] == Roles.Publisher.ToString()))
             {
                 ModelState.AddModelError("", "Siz Publisher deyilsiniz");
                 return View(blog);
             }
 
-            if (appUser==null)
-            {
-                ModelState.AddModelError("", "Siz Login Olmamisiz");
-                return View(blog);
-            }
+            
             
 
             blog.AppUserId = appUser.Id;
@@ -170,7 +173,6 @@ namespace Juan.Areas.Admin.Controllers
             ViewBag.PageIndex = page;
             if (id == null) return BadRequest();
 
-            if (id == null) return BadRequest();
 
             Blog blog = await _context.Blogs
                 .Include(b => b.Category)
@@ -180,17 +182,32 @@ namespace Juan.Areas.Admin.Controllers
 
             if (blog == null) return NotFound();
 
+
             return View(blog);
         }
 
         public async Task<IActionResult> DeleteRestore(int? id, bool? status, int page = 1)
         {
+            AppUser appUser = _userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            if (appUser == null)
+            {
+                return RedirectToAction("index", new { status, page });
+            }
+
+            if (!((await _userManager.GetRolesAsync(appUser))[0] == Roles.Publisher.ToString()))
+            {
+                return RedirectToAction("index", new { status, page });
+            }
+
             if (id == null) return BadRequest();
 
             Blog blog = await _context.Blogs
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (blog == null) return NotFound();
+
+            
+
             if (blog.IsDeleted)
             {
                 blog.IsDeleted = false;
@@ -226,6 +243,109 @@ namespace Juan.Areas.Admin.Controllers
             ViewBag.Tags = await _context.Tags.Where(t => !t.IsDeleted).ToListAsync();
             blog.TagIds = blog.BlogTags.Select(pt => pt.Tag.Id).ToList();
             return View(blog);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(int? id, Blog blog, bool? status, int page = 1)
+        {
+            AppUser appUser = _userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            if (appUser == null)
+            {
+                return RedirectToAction("index", new { status, page });
+            }
+
+            if (!((await _userManager.GetRolesAsync(appUser))[0] == Roles.Publisher.ToString()))
+            {
+                return RedirectToAction("index", new { status, page });
+            }
+
+            ViewBag.Brands = await _context.Brands.Where(b => !b.IsDeleted).ToListAsync();
+            ViewBag.Categories = await _context.Categories.Where(c => !c.IsDeleted).ToListAsync();
+            ViewBag.Tags = await _context.Tags.Where(t => !t.IsDeleted).ToListAsync();
+
+            if (id == null) return BadRequest();
+
+            if (id != blog.Id) return BadRequest();
+
+            Blog DBblog = await _context.Blogs
+               .Include(b => b.Category)
+               .Include(b => b.BlogTags).ThenInclude(bt => bt.Tag)
+               .Include(b => b.AppUser)
+               .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (DBblog == null) return NotFound();
+
+            if (!ModelState.IsValid) return View(DBblog);
+
+
+            if (!await _context.Categories.AnyAsync(b => b.Id == blog.CategoryId && !b.IsDeleted))
+            {
+                ModelState.AddModelError("CategoryId", "Duzgun Category Secin ");
+                return View(blog);
+            }
+
+
+
+            if (blog.TagIds.Count > 0)
+            {
+                _context.BlogTags.RemoveRange(DBblog.BlogTags);
+
+                List<BlogTag> blogTags = new List<BlogTag>();
+
+                foreach (int item in blog.TagIds)
+                {
+                    if (!await _context.Tags.AnyAsync(t => t.Id != item && !t.IsDeleted))
+                    {
+                        ModelState.AddModelError("TagIds", $"Secilen Id {item} - li Tag Yanlisdir");
+                        return View(blog);
+                    }
+
+                    BlogTag blogTag = new BlogTag
+                    {
+                        TagId = item
+                    };
+
+                    blogTags.Add(blogTag);
+                }
+
+                DBblog.BlogTags = blogTags;
+            }
+            else
+            {
+                _context.BlogTags.RemoveRange(DBblog.BlogTags);
+            }
+
+
+
+
+            if (blog.ImageFile != null)
+            {
+                if (!blog.ImageFile.CheckFileContentType("image/jpeg"))
+                {
+                    ModelState.AddModelError("ImageFile", "Secilen Seklin Novu Uygun");
+                    return View();
+                }
+
+                if (!blog.ImageFile.CheckFileSize(300))
+                {
+                    ModelState.AddModelError("ImageFile", "Secilen Seklin Olcusu Maksimum 300 Kb Ola Biler");
+                    return View();
+                }
+                Helper.DeleteFile(_env, DBblog.ImageUrl, "user", "assets", "img", "blog");
+
+                DBblog.ImageUrl = blog.ImageFile.CreateFile(_env, "user", "assets", "img", "blog");
+            }
+
+
+            DBblog.CategoryId = blog.CategoryId;
+            DBblog.Title = blog.Title;
+            blog.MainDes = blog.MainDes;
+            blog.Desc = blog.Desc;
+            DBblog.UpdatedAt = DateTime.UtcNow.AddHours(4);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("index", new { status, page });
         }
     }
 }

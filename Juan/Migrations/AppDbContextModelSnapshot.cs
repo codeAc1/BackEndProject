@@ -176,6 +176,9 @@ namespace Juan.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -316,7 +319,7 @@ namespace Juan.Migrations
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
 
-                    b.Property<decimal>("DiscountPrice")
+                    b.Property<decimal?>("DiscountPrice")
                         .HasColumnType("money");
 
                     b.Property<bool>("IsDeleted")

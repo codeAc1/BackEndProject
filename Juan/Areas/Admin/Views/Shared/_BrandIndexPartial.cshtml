@@ -7,6 +7,7 @@
     <thead>
         <tr>
             <th scope="col">#</th>
+            <th scope="col">Image</th>
             <th scope="col">Name</th>
             <th scope="col">Product Count</th>
             <th scope="col">Status</th>
@@ -17,23 +18,35 @@
         @foreach (Brand brand in Model)
         {
             count++;
-            <tr>
-                <th scope="row">@count</th>
-                <td>@brand.Name</td>
-                <td>@brand.Products.Count()</td>
-                <td style="color:@(brand.IsDeleted ? "red":"green")">@(brand.IsDeleted ? "DeActive":"Active")</td>
-                <td>
+        <tr>
+            <th scope="row">@count</th>
+            <td>
+                @if (brand.ImageUrl != null)
+                {
+                    <div style="width:50%; display:inline-table">
+                        <img class="img-fluid img-thumbnail" src="~/user/assets/img/brand/@brand.ImageUrl" alt="Alternate Text" style="max-width:120px;max-height:120px; object-fit:contain " />
+                    </div>
+                }
+                else
+                {
+                    <span class="text-danger">Empty</span>
+                }
+            </td>
+            <td>@brand.Name</td>
+            <td>@brand.Products.Count()</td>
+            <td style="color:@(brand.IsDeleted ? "red":"green")">@(brand.IsDeleted ? "DeActive":"Active")</td>
+            <td>
 
-                    <a class="btn btn-warning" asp-action="Update" asp-route-id="@brand.Id" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex">Update</a>
-                    @if (brand.IsDeleted)
-                    {
-                        <a  class="btn btn-primary restoreBrand" asp-action="DeleteRestore" asp-route-id="@brand.Id" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex">Restore</a> }
-                    else
-                    {
-                        <a  class="btn btn-danger deleteBrand" asp-action="DeleteRestore" asp-route-id="@brand.Id" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex">Delete</a>}
+                <a class="btn btn-warning" asp-action="Update" asp-route-id="@brand.Id" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex">Update</a>
+                @if (brand.IsDeleted)
+                {
+                    <a class="btn btn-primary restoreBrand" asp-action="DeleteRestore" asp-route-id="@brand.Id" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex">Restore</a> }
+                else
+                {
+                    <a class="btn btn-danger deleteBrand" asp-action="DeleteRestore" asp-route-id="@brand.Id" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex">Delete</a>}
 
-                </td>
-            </tr>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

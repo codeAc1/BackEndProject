@@ -6,13 +6,18 @@
         <h1>Brand Create</h1>
     </div>
     <div class="col-lg-12 mx-auto">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label asp-for="Name"></label>
                 <input asp-for="Name" class="form-control" placeholder="Enter Brand name...">
                 <span asp-validation-for="Name"></span>
             </div>
-            <button type="submit"  class="btn btn-primary">Submit</button>
+            <div class="form-group">
+                <label >Brand Image</label>
+                <input class="form-control" accept="image/png" asp-for="ImageFile" placeholder="Enter MainImage">
+                <span class="text-danger" asp-validation-for="ImageFile"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 </div>

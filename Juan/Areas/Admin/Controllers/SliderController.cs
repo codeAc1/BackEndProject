@@ -125,7 +125,7 @@ namespace Juan.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(Slider slider)
         {
-            Slider dbSlider = await _context.Sliders.FirstOrDefaultAsync();
+            Slider dbSlider = await _context.Sliders.FirstOrDefaultAsync(x=>x.Id==slider.Id);
 
             slider.ImageUrl = dbSlider.ImageUrl;
 

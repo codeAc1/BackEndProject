@@ -19,6 +19,8 @@
     <Compile Remove="Migrations\20220504171003_sizeaddproduct.Designer.cs" />
     <Compile Remove="Migrations\20220505083339_user.cs" />
     <Compile Remove="Migrations\20220505083339_user.Designer.cs" />
+    <Compile Remove="Migrations\20220506100950_productdiscountnull.cs" />
+    <Compile Remove="Migrations\20220506100950_productdiscountnull.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,7 +37,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="wwwroot\user\assets\img\slider\" />
   </ItemGroup>
 
 </Project>

@@ -68,6 +68,7 @@
             <tbody>
                 @foreach (Blog blog in Model)
                 {
+                  
                     count++;
                     tags = string.Join(", ", blog.BlogTags.Select(p => p.Tag.Name));
                 <tr class="text-center">

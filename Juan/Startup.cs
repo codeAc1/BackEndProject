@@ -1,6 +1,7 @@
 using Juan.DAL;
 using Juan.Helpers;
 using Juan.Models;
+using Juan.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -50,6 +51,8 @@ namespace Juan
 
                 options.UseSqlServer(_config["ConnectionStrings:Default"]);
             });
+            services.AddScoped<LayoutService>();
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

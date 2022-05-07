@@ -28,7 +28,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="SlideDesc"></label>
-                        <textarea asp-for="SlideDesc" class="form-control" placeholder="Enter description..."></textarea>
+                        <input asp-for="SlideDesc" class="form-control" placeholder="Enter description...">
                         <span class="text-danger" asp-validation-for="SlideDesc"></span>
                     </div>
 
@@ -44,15 +44,7 @@
 @section Script
 {
     <partial name="_ValidationPartial.cshtml" />
-    <script src="https://cdn.ckeditor.com/ckeditor5/33.0.0/classic/ckeditor.js"></script>
-    <script>ClassicEditor
-    .create(document.querySelector('#SlideDesc'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });</script>
+    
 
 }
 
