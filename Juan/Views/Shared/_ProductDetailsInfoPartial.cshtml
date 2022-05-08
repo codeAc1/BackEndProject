@@ -1,0 +1,22 @@
+﻿@model Product
+<div class="tab-pane fade" id="tab_two">
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td>color</td>
+                <td>
+                    @string.Join(", ", Model.ProductColors.Select(x => x.Color.Name))
+                </td>
+                
+
+            </tr>
+            <tr>
+                <td>size</td>
+                <td>
+                    @string.Join(", ", Model.productSizes.OrderBy(x=>x.Size.Name).Select(x => x.Size.Name))
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

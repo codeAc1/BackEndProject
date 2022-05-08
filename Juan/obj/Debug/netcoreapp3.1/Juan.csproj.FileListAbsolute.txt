@@ -200,3 +200,10 @@ C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Vie
 C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Basket\Index.cshtml.g.cs
 C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_BasketPartial.cshtml.g.cs
 C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_BasketIndexPartial.cshtml.g.cs
+C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Product\ProductDetail.cshtml.g.cs
+C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ProductOneDetailPartial.cshtml.g.cs
+C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ProductDetailsDescriptionPartial.cshtml.g.cs
+C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ProductDetailsInfoPartial.cshtml.g.cs
+C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ProductDetailRewPartial.cshtml.g.cs
+C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Account\MyAccount.cshtml.g.cs
+C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_AccountDetailPartial.cshtml.g.cs

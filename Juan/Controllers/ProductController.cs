@@ -1,6 +1,7 @@
 ﻿using Juan.DAL;
 using Juan.Models;
 using Juan.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -14,9 +15,11 @@ namespace Juan.Controllers
     public class ProductController : Controller
     {
         private readonly AppDbContext _context;
-        public ProductController(AppDbContext context)
+        private readonly UserManager<AppUser> _userManager;
+        public ProductController(AppDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -38,6 +41,28 @@ namespace Juan.Controllers
             if (product == null) return NotFound();
 
             return PartialView("_ProductDetailPartial", product);
+        }
+
+        public async Task<IActionResult> ProductDetail(int? id)
+        {
+            Product product = await _context.Products
+                .Include(x => x.Brand)
+                .Include(x => x.ProductImages)
+                .Include(x => x.Category)
+                .Include(x => x.ProductColors).ThenInclude(x => x.Color)
+                .Include(x => x.productSizes).ThenInclude(x => x.Size)
+                .Include(x => x.Reviews).ThenInclude(c => c.AppUser)
+                .FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
+            if (product == null) return NotFound();
+
+            ProductDetailViewModel ProductDetailVM = new ProductDetailViewModel
+            {
+                Product = product,
+                Review = new Review { ProductId = id },
+                Products = _context.Products.Include(x => x.ProductImages).Where(x => x.CategoryId == product.CategoryId).Take(6).ToList()
+            };
+
+            return View(ProductDetailVM);
         }
         public async Task<IActionResult> AddBasket(int? id, int count = 1,int colorId=1,int sizeId=1)
         {
@@ -104,5 +129,51 @@ namespace Juan.Controllers
             
 
         }
+
+        public async Task<IActionResult>  AddReviews(Review review)
+        {
+
+            AppUser member = null;
+            if (User.Identity.IsAuthenticated)
+            {
+                member = _userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name );
+            }
+            if (member == null)
+                return RedirectToAction("login", "account");
+
+            Product product = await _context.Products
+                 .Include(x => x.Brand)
+                 .Include(x => x.ProductImages)
+                 .Include(x => x.Category)
+                 .Include(x => x.ProductColors).ThenInclude(x => x.Color)
+                 .Include(x => x.productSizes).ThenInclude(x => x.Size)
+                 .Include(x => x.Reviews).ThenInclude(c => c.AppUser)
+                 .FirstOrDefaultAsync(x => x.Id == review.ProductId && !x.IsDeleted);
+            if (product == null) return NotFound();
+            
+            if (!ModelState.IsValid)
+            {
+
+                ProductDetailViewModel ProductDetailVM = new ProductDetailViewModel
+                {
+                    Product = product,
+                    Review = new Review { ProductId = review.ProductId },
+                    Products = _context.Products.Include(x => x.ProductImages).Where(x => x.CategoryId == product.CategoryId).Take(6).ToList()
+                };
+
+                return View("ProductDetail", ProductDetailVM);
+            }
+
+            review.AppUserId = member.Id;
+
+
+            review.CreatedAt = DateTime.UtcNow.AddHours(4);
+            product.Reviews.Add(review);
+
+            _context.SaveChanges();
+
+            return RedirectToAction("ProductDetail", new { id = review.ProductId });
+        }
+
     }
 }

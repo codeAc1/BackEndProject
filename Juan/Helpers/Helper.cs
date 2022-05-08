@@ -33,5 +33,12 @@ namespace Juan.Helpers
             Publisher
 
         }
+        public enum OrderStatus
+        {
+            Pending,
+            Accepted,
+            Rejected,
+            Delivered
+        }
     }
 }

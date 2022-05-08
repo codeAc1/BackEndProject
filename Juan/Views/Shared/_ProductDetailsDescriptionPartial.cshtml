@@ -1,0 +1,28 @@
+﻿@model Product
+@{ 
+    int DesLenHalf = (Model.Description.Length)/2;
+}
+    <div class="tab-pane fade show active" id="tab_one">
+        <div class="tab-one">
+            
+            <p>@Model.Description.Substring(0,DesLenHalf)</p>
+            <div class="review-description">
+                <div class="tab-thumb">
+                    <img src="~/user/assets/img/product/@Model.MainImage" alt="">
+                </div>
+                <div class="tab-des">
+                    <h3>Product Information :</h3>
+                    <ul>
+                        <li>Donec non est at libero vulputate rutrum</li>
+                        <li>Morbi ornare lectus quis justo gravida</li>
+                        <li>Pellentesque aliquet, sem eget laoreet</li>
+                        <li>Donec a neque libero</li>
+                        <li>Pellentesque aliquet, sem eget laoreet</li>
+                    </ul>
+                </div>
+            </div>
+            <p>@Model.Description.Substring(DesLenHalf)</p>
+            
+        </div>
+    </div>
+

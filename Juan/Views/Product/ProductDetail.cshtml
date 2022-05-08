@@ -1,0 +1,273 @@
+﻿@model ProductDetailViewModel
+@{
+    ViewData["Title"] = "ProductDetail";
+}
+
+<!-- main wrapper start -->
+
+<main>
+    <!-- breadcrumb area start -->
+    <div class="breadcrumb-area bg-img" data-bg="~/user/assets/img/banner/breadcrumb-banner.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-wrap text-center">
+                        <nav aria-label="breadcrumb">
+                            <h1 class="breadcrumb-title">shop</h1>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item"><a href="shop.html">Shop</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Product Details</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb area end -->
+    <!-- product details wrapper start -->
+    <div class="product-details-wrapper section-padding">
+        <div class="container custom-container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- product details inner end -->
+                    <div class="product-details-inner">
+                        @await Html.PartialAsync("_ProductOneDetailPartial", Model.Product)
+                    </div>
+                    <!-- product details inner end -->
+                    <!-- product details reviews start -->
+                    <div class="product-details-reviews section-padding">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="product-review-info">
+                                    <ul class="nav review-tab">
+                                        <li>
+                                            <a class="active" data-toggle="tab" href="#tab_one">description</a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#tab_two">information</a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#tab_three">reviews</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content reviews-tab">
+                                        @await Html.PartialAsync("_ProductDetailsDescriptionPartial", Model.Product)
+                                        @await Html.PartialAsync("_ProductDetailsInfoPartial", Model.Product)
+                                        <div class="tab-pane fade" id="tab_three">
+                                            <form action="#" class="review-form">
+                                                <h5>@Model.Product.Reviews.Where(r => !r.IsDeleted).Count() review for <span>@Model.Product.Title</span></h5>
+                                                @foreach (var review in Model.Product.Reviews.Where(r=>!r.IsDeleted))
+                                                {
+                                                    <div class="total-reviews">
+                                                        <div class="rev-avatar">
+                                                            @if (review.AppUser.Image != null)
+                                                            {
+                                                                <img src="~/user/assets/img/usersImage/@review.AppUser.Image" alt="">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img src="~/user/assets/img/usersImage/ImageEmpty.jpg" alt="">
+                                                            }
+                                                        </div>
+                                                        <div class="review-box">
+                                                            <div class="ratings">
+                                                                @for (int i = 0; i < 5; i++)
+                                                                {
+                                                                    if (i < review.Star)
+                                                                    {
+                                                                        <span class="good"><i class="fa fa-star"></i></span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span><i class="fa fa-star-o"></i></span>
+                                                                    }
+
+                                                                }
+                                                            </div>
+                                                            <div class="post-author">
+                                                                @if (review.AppUser.Id != null)
+                                                                {
+                                                                    <p><span>By: @review.AppUser.Name</span> on: @review.CreatedAt</p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p><span>By: @review.Name</span> on: @review.CreatedAt</p>
+                                                                }
+
+                                                            </div>
+                                                            <p>@review.Message</p>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </form> <!-- end of review-form -->
+                                            @await Html.PartialAsync("_ProductDetailRewPartial", Model.Review)
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- product details reviews end -->
+                    <!-- featured product area start -->
+                    <section class="Related-product">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="section-title text-center">
+                                        <h2 class="title">Related Product</h2>
+                                        <p class="sub-title">Lorem ipsum dolor sit amet consectetur adipisicing</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="product-carousel-4 mbn-50 slick-row-15 slick-arrow-style">
+                                        <!-- product single item start -->
+                                        <div class="product-item mb-50">
+                                            <div class="product-thumb">
+                                                <a href="product-details.html">
+                                                    <img src="~/user/assets/img/product/product-1.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="product-content">
+                                                <h5 class="product-name">
+                                                    <a href="product-details.html">Leather Mens Slipper</a>
+                                                </h5>
+                                                <div class="price-box">
+                                                    <span class="price-regular">$80.00</span>
+                                                    <span class="price-old"><del>$70.00</del></span>
+                                                </div>
+                                                <div class="product-action-link">
+                                                    <a href="#" data-toggle="tooltip" title="Wishlist"><i class="ion-android-favorite-outline"></i></a>
+                                                    <a href="#" data-toggle="tooltip" title="Add To Cart"><i class="ion-bag"></i></a>
+                                                    <a href="#" data-toggle="modal" data-target="#quick_view">
+                                                        <span data-toggle="tooltip"
+                                                              title="Quick View"><i class="ion-ios-eye-outline"></i></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- product single item start -->
+                                        <!-- product single item start -->
+                                        <div class="product-item mb-50">
+                                            <div class="product-thumb">
+                                                <a href="product-details.html">
+                                                    <img src="~/user/assets/img/product/product-2.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="product-content">
+                                                <h5 class="product-name">
+                                                    <a href="product-details.html">Quickiin Mens shoes</a>
+                                                </h5>
+                                                <div class="price-box">
+                                                    <span class="price-regular">$80.00</span>
+                                                    <span class="price-old"><del>$70.00</del></span>
+                                                </div>
+                                                <div class="product-action-link">
+                                                    <a href="#" data-toggle="tooltip" title="Wishlist"><i class="ion-android-favorite-outline"></i></a>
+                                                    <a href="#" data-toggle="tooltip" title="Add To Cart"><i class="ion-bag"></i></a>
+                                                    <a href="#" data-toggle="modal" data-target="#quick_view">
+                                                        <span data-toggle="tooltip"
+                                                              title="Quick View"><i class="ion-ios-eye-outline"></i></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- product single item start -->
+                                        <!-- product single item start -->
+                                        <div class="product-item mb-50">
+                                            <div class="product-thumb">
+                                                <a href="product-details.html">
+                                                    <img src="~/user/assets/img/product/product-3.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="product-content">
+                                                <h5 class="product-name">
+                                                    <a href="product-details.html">Rexpo Womens shoes</a>
+                                                </h5>
+                                                <div class="price-box">
+                                                    <span class="price-regular">$80.00</span>
+                                                    <span class="price-old"><del>$70.00</del></span>
+                                                </div>
+                                                <div class="product-action-link">
+                                                    <a href="#" data-toggle="tooltip" title="Wishlist"><i class="ion-android-favorite-outline"></i></a>
+                                                    <a href="#" data-toggle="tooltip" title="Add To Cart"><i class="ion-bag"></i></a>
+                                                    <a href="#" data-toggle="modal" data-target="#quick_view">
+                                                        <span data-toggle="tooltip"
+                                                              title="Quick View"><i class="ion-ios-eye-outline"></i></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- product single item start -->
+                                        <!-- product single item start -->
+                                        <div class="product-item mb-50">
+                                            <div class="product-thumb">
+                                                <a href="product-details.html">
+                                                    <img src="~/user/assets/img/product/product-4.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="product-content">
+                                                <h5 class="product-name">
+                                                    <a href="product-details.html">Primitive Mens shoes</a>
+                                                </h5>
+                                                <div class="price-box">
+                                                    <span class="price-regular">$80.00</span>
+                                                    <span class="price-old"><del>$70.00</del></span>
+                                                </div>
+                                                <div class="product-action-link">
+                                                    <a href="#" data-toggle="tooltip" title="Wishlist"><i class="ion-android-favorite-outline"></i></a>
+                                                    <a href="#" data-toggle="tooltip" title="Add To Cart"><i class="ion-bag"></i></a>
+                                                    <a href="#" data-toggle="modal" data-target="#quick_view">
+                                                        <span data-toggle="tooltip"
+                                                              title="Quick View"><i class="ion-ios-eye-outline"></i></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- product single item start -->
+                                        <!-- product single item start -->
+                                        <div class="product-item mb-50">
+                                            <div class="product-thumb">
+                                                <a href="product-details.html">
+                                                    <img src="~/user/assets/img/product/product-5.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="product-content">
+                                                <h5 class="product-name">
+                                                    <a href="product-details.html">Leather Mens Slipper</a>
+                                                </h5>
+                                                <div class="price-box">
+                                                    <span class="price-regular">$80.00</span>
+                                                    <span class="price-old"><del>$70.00</del></span>
+                                                </div>
+                                                <div class="product-action-link">
+                                                    <a href="#" data-toggle="tooltip" title="Wishlist"><i class="ion-android-favorite-outline"></i></a>
+                                                    <a href="#" data-toggle="tooltip" title="Add To Cart"><i class="ion-bag"></i></a>
+                                                    <a href="#" data-toggle="modal" data-target="#quick_view">
+                                                        <span data-toggle="tooltip"
+                                                              title="Quick View"><i class="ion-ios-eye-outline"></i></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- product single item start -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- featured product area end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- product details wrapper end -->
+</main>
+<!-- main wrapper end -->
+@section Script{
+        <script src="~/user/assets/js/SlickCostum.js"></script>
+}

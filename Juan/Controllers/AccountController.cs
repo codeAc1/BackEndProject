@@ -3,6 +3,7 @@ using Juan.Models;
 using Juan.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,32 @@ namespace Juan.Controllers
             _context = context;
             _roleManager = roleManager;
         }
+
+        //public async Task <IActionResult> MyAccount()
+        //{
+        //    AppUser appUser = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name && !u.isAdmin);
+
+        //    if (appUser == null) return RedirectToAction("index", "home");
+
+        //    UserProfileVM memberProfileVM = new UserProfileVM
+        //    {
+        //        Member = new UserUpdateVM
+        //        {
+                    
+        //            Name=appUser.Name,
+        //            SurName=appUser.SurName,
+        //            UserName = appUser.UserName,
+        //            Email = appUser.Email
+        //        },
+        //        Orders = await _context.Orders
+        //        .Include(o => o.OrderItems).ThenInclude(oi => oi.Product)
+        //        .Include(o => o.AppUser)
+        //        .Where(o => !o.IsDeleted && o.AppUserId == appUser.Id).ToListAsync()
+
+        //    };
+
+        //    return View(memberProfileVM);
+        //}
         public IActionResult Register()
         {
             return View();

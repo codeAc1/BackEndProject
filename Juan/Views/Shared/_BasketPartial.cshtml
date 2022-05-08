@@ -11,34 +11,40 @@
 
 <div class="minicart-item-wrapper">
     <ul>
-        @foreach (BasketVM basketVM in Model)
+        @if (Model.Count() > 0)
         {
+            @foreach (BasketVM basketVM in Model)
+            {
 
-        <li class="minicart-item">
-            <div class="minicart-thumb">
-                <a href="product-details.html">
-                    <img src="~/user/assets/img/product/@basketVM.Image" alt="product">
-                </a>
-            </div>
-            <div class="minicart-content">
-                <h3 class="product-name">
-                    <a href="product-details.html">@basketVM.Title</a>
-                </h3>
-                <p>
-                    <span class="cart-quantity">@basketVM.Count<strong>&times;</strong></span>
-                    <span class="cart-price">$@basketVM.Price</span>
-                </p>
+                <li class="minicart-item">
+        <div class="minicart-thumb">
+            <a href="product-details.html">
+                <img src="~/user/assets/img/product/@basketVM.Image" alt="product">
+            </a>
+        </div>
+        <div class="minicart-content">
+            <h3 class="product-name">
+                <a href="product-details.html">@basketVM.Title</a>
+            </h3>
+            <p>
+                <span class="cart-quantity">@basketVM.Count<strong>&times;</strong></span>
+                <span class="cart-price">$@basketVM.Price</span>
+            </p>
 
-                <p>
-                    <span class="pro-colo " style="margin-right:1rem">Size:@basketVM.Color</span>
-                    <span class="pro-size">Color:@basketVM.Size</span>
-                </p>
-            </div>
-            <a class="minicart-remove deletecard" asp-action="DeleteCard" asp-route-id="@basketVM.ProductId"><i class="ion-android-close"></i></a>
-        </li>
-            subTotal += (basketVM.Price * basketVM.Count);
-         }
-
+            <p>
+                <span class="pro-colo " style="margin-right:1rem">Size:@basketVM.Color</span>
+                <span class="pro-size">Color:@basketVM.Size</span>
+            </p>
+        </div>
+        <a class="minicart-remove deletecard" asp-controller="Basket" asp-action="DeleteCard" asp-route-id="@basketVM.ProductId"><i class="ion-android-close"></i></a>
+    </li>
+                    subTotal += (basketVM.Price * basketVM.Count);
+            }
+        }
+        else
+        {
+        <li class="text-danger">Shopping Cart Is Empty </li>
+        }
     </ul>
 </div>
 

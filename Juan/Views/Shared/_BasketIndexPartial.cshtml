@@ -22,25 +22,35 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (BasketVM basketVM in Model)
+                            @if (Model.Count() > 0)
                             {
-                                <tr>
-                                    <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="~/user/assets/img/product/@basketVM.Image" alt="Product" /></a></td>
-                                    <td class="pro-title"><a href="#">@basketVM.Title</a></td>
-                                    <td class="pro-price"><span>$@basketVM.Price</span></td>
-                                    <td class="pro-quantity">
-                                        <div class="pro-qty">
-                                            <a class="dec qtybtn">-</a>
-                                            <input type="text" class="basketItemCount" value="@basketVM.Count">
-                                            <a class="inc qtybtn" asp-action="update" asp-controller="basket" asp-route-id="@basketVM.ProductId">+</a>
-                                        </div>
-                                        
-                                    </td>
-                                    <td class="pro-subtotal"><span>$@(basketVM.Price * basketVM.Count)</span></td>
-                                    <td class="pro-remove"><a class="deletecard" asp-action="DeleteCard" asp-route-id="@basketVM.ProductId"><i class="fa fa-trash-o"></i></a></td>
-                                </tr>
-                                subTotal += basketVM.Price * basketVM.Count;
+                                @foreach (BasketVM basketVM in Model)
+                                {
+                                    <tr>
+                                        <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="~/user/assets/img/product/@basketVM.Image" alt="Product" /></a></td>
+                                        <td class="pro-title"><a href="#">@basketVM.Title</a></td>
+                                        <td class="pro-price"><span>$@basketVM.Price</span></td>
+                                        <td class="pro-quantity">
+                                            <div class="pro-qty">
+                                                <a class="dec qtybtn basketUpdate" asp-action="update" asp-controller="basket" asp-route-id="@basketVM.ProductId">-</a>
+                                                <input type="text" class="basketItemCount" value="@basketVM.Count">
+                                                <a class="inc qtybtn basketUpdate" asp-action="update" asp-controller="basket" asp-route-id="@basketVM.ProductId">+</a>
+                                            </div>
+
+                                        </td>
+                                        <td class="pro-subtotal"><span>$@(basketVM.Price * basketVM.Count)</span></td>
+                                        <td class="pro-remove"><a class="deletecard" asp-action="DeleteCard" asp-route-id="@basketVM.ProductId"><i class="fa fa-trash-o"></i></a></td>
+                                    </tr>
+                                    subTotal += basketVM.Price * basketVM.Count;
+                                }
                             }
+                            else
+                            {
+                            <tr>
+                                <td colspan="6" class="text-danger" style="font-size:3rem; font-weight:800">Shopping Cart Is Empty </td>
+                            </tr>
+                            }
+
 
 
                         </tbody>
