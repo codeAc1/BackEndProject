@@ -54,9 +54,27 @@
         fetch(url).then(response => {
             return response.text();
         }).then(data => {
-            /*$(".header-cart").html(data)*/
-            console.log(data)
-
+            $(".minicart-content-box").html(data)
         })
+    })
+    $(document).on("click", ".deletecard", function (e) {
+        e.preventDefault();
+
+        let url = $(this).attr("href");
+
+        fetch(url).then(response => {
+            fetch("Basket/GetBasket").then(response => response.text()).then(data => $(".minicart-content-box").html(data))
+
+            return response.text()
+        }).then(data => $(".basketContainer").html(data))
+    })
+    $(document).on("keyup", ".basketItemCount", function () {
+        let url = $(this).next().attr("href");
+        url = url + "?count=" + $(this).val();
+        
+        if ($(this).val().trim()) {
+            fetch(url).then(response => response.text()).then(data => $(".basketContainer").html(data))
+
+        }
     })
 })

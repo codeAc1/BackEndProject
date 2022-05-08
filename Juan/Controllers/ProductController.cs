@@ -96,8 +96,6 @@ namespace Juan.Controllers
                 basketVM.Image = dbProduct.MainImage;
                 basketVM.Price = (double)(dbProduct.DiscountPrice > 0 ? dbProduct.DiscountPrice : dbProduct.Price);
                 basketVM.Title = dbProduct.Title;
-               
-                
                 
             }
 

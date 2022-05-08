@@ -112,9 +112,3 @@
     </div>
     <!-- product details inner end -->
 </div>
-<select class="form-control color">
-    @foreach (ProductColor productColor in Model.ProductColors)
-    {
-        <option value="@productColor.Id">@productColor.Color.Name</option>
-    }
-</select>

@@ -199,3 +199,4 @@ C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Are
 C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ProductDetailPartial.cshtml.g.cs
 C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Basket\Index.cshtml.g.cs
 C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_BasketPartial.cshtml.g.cs
+C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_BasketIndexPartial.cshtml.g.cs
