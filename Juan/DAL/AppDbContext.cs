@@ -29,6 +29,7 @@ namespace Juan.DAL
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Basket> Baskets { get; set; }
 
 
     }

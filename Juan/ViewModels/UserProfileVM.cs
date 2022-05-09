@@ -8,6 +8,6 @@ namespace Juan.ViewModels
     public class UserProfileVM
     {
         public UserUpdateVM Member { get; set; }
-        public List<Juan.Models.Order> Orders { get; set; }
+        public List<Models.Order> Orders { get; set; }
     }
 }

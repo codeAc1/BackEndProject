@@ -1,0 +1,82 @@
+﻿@model Order
+@{
+    ViewData["Title"] = "GetMyOrder";
+  
+}
+
+<main>
+    <!-- breadcrumb area start -->
+    <div class="breadcrumb-area bg-img" data-bg="~/user/assets/img/banner/breadcrumb-banner.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-wrap text-center">
+                        <nav aria-label="breadcrumb">
+                            <h1 class="breadcrumb-title">Cart</h1>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Order Detail</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb area end -->
+    <!-- cart main wrapper start -->
+    <div class="cart-main-wrapper section-padding basketContainer">
+        <div class="container">
+            <div class="section-bg-color">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Cart Table Area -->
+                        <div class="cart-table table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="pro-thumbnail">Thumbnail</th>
+                                        <th class="pro-title">Product</th>
+                                        <th class="pro-price">Price</th>
+                                        <th class="pro-quantity">Quantity</th>
+                                        <th class="pro-quantity">SubTotal</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (OrderItem orderItem in Model.OrderItems)
+                                    {
+                                        <tr>
+                                            <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="~/user/assets/img/product/@orderItem.Product.MainImage" alt="Product" /></a></td>
+                                            <td class="pro-title"><a href="#">@orderItem.Product.Title</a></td>
+                                            <td class="pro-price"><span>$@orderItem.Price</span></td>
+                                            <td class="pro-quantity">
+                                                <span>@orderItem.Count</span>
+                                            </td>
+                                            <td class="pro-quantity">
+                                                <span>@orderItem.TotalPrice</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td colspan="6" class="text-center text-danger">
+                                            <span>Total Price :</span>
+                                            <span>$@Model.TotalPrice</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+
+                            </table>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- cart main wrapper end -->
+</main>
+<!-- main wrapper end -->

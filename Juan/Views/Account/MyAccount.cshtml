@@ -1,6 +1,7 @@
 ﻿@model UserProfileVM
 @{
     ViewData["Title"] = "MyAccount";
+    int orderCount = 1;
 }
 
 <main>
@@ -34,7 +35,7 @@
                         <div class="row">
                             <div class="col-lg-3 col-md-4">
                                 <div class="myaccount-tab-menu nav" role="tablist">
-                                    <a href="#dashboad" class="active" data-toggle="tab">
+                                    <a href="#dashboad" class="active" data-toggle="tab" >
                                         <i class="fa fa-dashboard"></i>
                                         Dashboard
                                     </a>
@@ -45,7 +46,7 @@
                                         Method
                                     </a>
                                     <a href="#address-edit" data-toggle="tab"><i class="fa fa-map-marker"></i> address</a>
-                                    <a href="#account-info" data-toggle="tab"><i class="fa fa-user"></i> Account Details</a>
+                                    <a href="#account-info" data-toggle="tab" aria-selected="@((TempData["ProfileTab"] != null && TempData["ProfileTab"].ToString() == "Account"?"true":"false"))" class="@((TempData["ProfileTab"] != null && TempData["ProfileTab"].ToString() == "Account"?"active":""))"><i class="fa fa-user"></i> Account Details</a>
                                     <a href="login-register.html"><i class="fa fa-sign-out"></i> Logout</a>
                                 </div>
                             </div>
@@ -80,27 +81,17 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>Aug 22, 2018</td>
-                                                            <td>Pending</td>
-                                                            <td>$3000</td>
-                                                            <td><a href="cart.html" class="btn ">View</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>2</td>
-                                                            <td>July 22, 2018</td>
-                                                            <td>Approved</td>
-                                                            <td>$200</td>
-                                                            <td><a href="cart.html" class="btn ">View</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>3</td>
-                                                            <td>June 12, 2017</td>
-                                                            <td>On Hold</td>
-                                                            <td>$990</td>
-                                                            <td><a href="cart.html" class="btn ">View</a></td>
-                                                        </tr>
+                                                        @foreach (Order order in Model.Orders)
+                                                        {
+                                                            <tr>
+                                                                <td>@orderCount</td>
+                                                                <td>@order.CreatedAt</td>
+                                                                <td>@order.Status</td>
+                                                                <td>$@order.TotalPrice</td>
+                                                                <td><a asp-controller="Order" asp-action="GetMyOrder" asp-route-orderId="@order.Id" asp-route-UserName="@order.AppUser.Name" class="btn ">View</a></td>
+                                                            </tr>
+                                                            orderCount += 1;
+                                                        }
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -165,11 +156,11 @@
                                     </div>
                                     <!-- Single Tab Content End -->
                                     <!-- Single Tab Content Start -->
-                                    <div class="tab-pane fade" id="account-info" role="tabpanel">
+                                    <div class="tab-pane fade @((TempData["ProfileTab"] != null && TempData["ProfileTab"].ToString() == "Account"?"active show":""))" id="account-info" role="tabpanel">
                                         <div class="myaccount-content">
                                             <h3>Account Details</h3>
                                             <div class="account-details-form">
-                                                @*@await Html.PartialAsync("_AccountDetailPartial", Model.Member)*@
+                                                @await Html.PartialAsync("_AccountDetailPartial", Model.Member)
                                             </div>
                                         </div>
                                     </div> <!-- Single Tab Content End -->

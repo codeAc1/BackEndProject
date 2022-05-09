@@ -4,14 +4,16 @@ using Juan.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Juan.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220509090602_addBasketTbale")]
+    partial class addBasketTbale
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -395,10 +397,6 @@ namespace Juan.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<string>("OrderNote")
-                        .HasColumnType("nvarchar(1000)")
-                        .HasMaxLength(1000);
 
                     b.Property<string>("State")
                         .IsRequired()
@@ -986,7 +984,7 @@ namespace Juan.Migrations
                         .HasForeignKey("ColorId");
 
                     b.HasOne("Juan.Models.Product", "Product")
-                        .WithMany("Baskets")
+                        .WithMany()
                         .HasForeignKey("ProductId");
 
                     b.HasOne("Juan.Models.Size", "Size")
@@ -1049,7 +1047,7 @@ namespace Juan.Migrations
                         .IsRequired();
 
                     b.HasOne("Juan.Models.Product", "Product")
-                        .WithMany("OrderItems")
+                        .WithMany()
                         .HasForeignKey("ProductId");
 
                     b.HasOne("Juan.Models.Size", "Size")

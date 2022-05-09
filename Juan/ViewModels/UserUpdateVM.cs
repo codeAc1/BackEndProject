@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -36,5 +38,8 @@ namespace Juan.ViewModels
         public string Password { get; set; }
         [Compare(nameof(Password)), DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
+        public string Image { get; set; }
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
     }
 }

@@ -42,5 +42,7 @@ namespace Juan.Models
         public IEnumerable<ProductSize> productSizes { get; set; }
         public List<ProductImage> ProductImages { get; set; }
         public List<Review> Reviews { get; set; }
+        public IEnumerable<Basket> Baskets { get; set; }
+        public IEnumerable<OrderItem> OrderItems { get; set; }
     }
 }

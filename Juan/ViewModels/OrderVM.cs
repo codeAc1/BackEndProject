@@ -1,17 +1,20 @@
-﻿using System;
+﻿using Juan.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using static Juan.Helpers.Helper;
 
-namespace Juan.Models
+namespace Juan.ViewModels
 {
-    public class Order:BaseEntity
+    public class OrderVM
     {
-        public string AppUserId { get; set; }
-        public AppUser AppUser { get; set; }
-        public double TotalPrice { get; set; }
+        [StringLength(255), Required, EmailAddress]
+        public string Email { get; set; }
+        [StringLength(255), Required]
+        public string Name { get; set; }
+        [StringLength(255), Required]
+        public string Surname { get; set; }
         [StringLength(255), Required]
         public string Address { get; set; }
         [StringLength(255), Required]
@@ -22,9 +25,8 @@ namespace Juan.Models
         public string State { get; set; }
         [StringLength(255), Required]
         public string ZipCode { get; set; }
-        [StringLength (1000)]
-        public string OrderNote { get; set; }
-        public OrderStatus Status { get; set; }
-        public IEnumerable<OrderItem> OrderItems { get; set; }
+        public string Phone { get; set; }
+        public List<Basket> Baskets { get; set; }
+
     }
 }
