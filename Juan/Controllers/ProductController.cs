@@ -22,9 +22,62 @@ namespace Juan.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
+
+        public async Task<IActionResult>  Index( int? categoryId, decimal? minPrice, decimal? maxPrice, List<int> colorIds, List<int> sizeIds, int page = 1)
         {
-            return View();
+
+            var products = _context.Products
+                .Include(x => x.Brand)
+                .Include(x => x.Category)
+                .Include(x => x.ProductColors)
+                .Include(x => x.ProductImages)
+                .Include(x => x.Reviews)
+                .Where(x => !x.IsDeleted);
+
+            ViewBag.CategoryId = categoryId;
+            ViewBag.PageIndex = page;
+            ViewBag.ColorIds = colorIds;
+            ViewBag.SizeIds = colorIds;
+
+            ViewBag.TotalProducts = products.Count();
+
+            ProductListVM productListVM = new ProductListVM();
+
+
+
+            if (categoryId != null)
+            {
+                products = products.Where(x => x.CategoryId == categoryId);
+            }
+
+            if (colorIds != null && colorIds.Count > 0)
+                products = products.Where(x => x.ProductColors.Any(p => colorIds.Contains((int)p.ColorId)));
+
+            if (sizeIds != null && sizeIds.Count > 0)
+                products = products.Where(x => x.productSizes.Any(p => sizeIds.Contains((int)p.SizeId)));
+
+            if (products.Any())
+            {
+                productListVM.MinPrice = (decimal)products.Min(x => x.Price);
+                productListVM.MaxPrice = (decimal)products.Max(x => x.Price);
+            }
+
+            ViewBag.FilterMinPrice = minPrice ?? productListVM.MinPrice;
+            ViewBag.FilterMaxPrice = maxPrice ?? productListVM.MaxPrice;
+
+            if (minPrice != null && maxPrice != null)
+                products = products.Where(x => x.Price>(double)(minPrice) && x.Price<(double)(maxPrice));
+
+            ViewBag.TotalPages = (int)Math.Ceiling(products.Count() / 6d);
+
+            productListVM.Settings = await _context.Settings.ToListAsync();
+            productListVM.Products = products.Skip((page - 1) * 6).Take(6).ToList();
+            productListVM.Categories =await _context.Categories.Include(x => x.Products).Where(x => !x.IsDeleted).ToListAsync();
+            productListVM.Colors = await _context.Colors.Where(x => !x.IsDeleted).ToListAsync();
+            productListVM.Sizes = await _context.Sizes.Where(x => !x.IsDeleted).ToListAsync();
+            productListVM.FilterColorIds = colorIds;
+            productListVM.FilterSizeIds = sizeIds;
+            return View(productListVM);
         }
 
         public async Task<IActionResult> DetailModal(int? id)
@@ -45,6 +98,7 @@ namespace Juan.Controllers
 
         public async Task<IActionResult> ProductDetail(int? id)
         {
+            if (id == null) return BadRequest();
             Product product = await _context.Products
                 .Include(x => x.Brand)
                 .Include(x => x.ProductImages)

@@ -210,3 +210,6 @@ C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Vie
 C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Order\Create.cshtml.g.cs
 C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_OrderFormPartial.cshtml.g.cs
 C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Order\GetMyOrder.cshtml.g.cs
+C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Product\Index.cshtml.g.cs
+C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Blog\Index.cshtml.g.cs
+C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\obj\Debug\netcoreapp3.1\Razor\Views\Blog\BlogDetail.cshtml.g.cs

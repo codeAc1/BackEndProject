@@ -25,7 +25,7 @@ namespace Juan.Models
         public List<int> TagIds { get; set; } = new List<int>();
 
         public IEnumerable<BlogTag> BlogTags { get; set; }
-        public IEnumerable<Comment> Comments { get; set; }
+        public IEnumerable<Review> Reviews { get; set; }
 
     }
 }

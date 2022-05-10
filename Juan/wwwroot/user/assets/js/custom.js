@@ -7,6 +7,8 @@
             .then(data => {
                 $(".modal-content").html(data)
 
+                
+
                 $('.product-large-slider').slick({
                     fade: true,
                     arrows: false,
@@ -41,6 +43,7 @@
                 });
                 $('.img-zoom').zoom();
                 $("#productQuickModal").modal("show")
+                
             })
     })
     $(document).on("click", ".addbasketbtn", function (e) {
@@ -106,5 +109,24 @@
         }
         
         
+    })
+
+    $(document).on("change", ".categoryfilter", function (e) {
+        $("#filterForm").submit();
+    })
+  
+    $(document).on("change", ".colorfilter", function (e) {
+        $("#filterForm").submit();
+    })
+    $(document).on("change", ".sizefilter", function (e) {
+        $("#filterForm").submit();
+    })
+    
+    $(document).on("change", "#minPriceInput", function (e) {
+        $("#filterForm").submit();
+    })
+    
+    $(document).on("change", "#maxPriceInput", function (e) {
+        $("#filterForm").submit();
     })
 })

@@ -228,18 +228,18 @@
 	//});
 
 	// testimonial carousel active js
-	$('.testimonial-active').slick({
-		dots: true,
-		arrows: false,
-		responsive: [
-			{
-				breakpoint: 992,
-				settings: {
-					dots: false
-				}
-			}
-		]
-	});
+	//$('.testimonial-active').slick({
+	//	dots: true,
+	//	arrows: false,
+	//	responsive: [
+	//		{
+	//			breakpoint: 992,
+	//			settings: {
+	//				dots: false
+	//			}
+	//		}
+	//	]
+	//});
 
 
 	// image zoom effect
