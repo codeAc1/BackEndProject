@@ -2,6 +2,7 @@
 using Juan.Extensions;
 using Juan.Helpers;
 using Juan.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -16,6 +17,7 @@ using static Juan.Helpers.Helper;
 namespace Juan.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin,Publisher,Manager")]
     public class BlogController : Controller
     {
         private readonly AppDbContext _context;

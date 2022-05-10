@@ -74,7 +74,9 @@ namespace Juan.Controllers
             {
                 Blog = blog,
                 Review = new Review { BlogId = id },
-                Blogs = await _context.Blogs.Where(x => x.CategoryId == blog.CategoryId).Take(4).OrderByDescending(x=>x.CreatedAt).ToListAsync()
+                Blogs = await _context.Blogs.Where(x => x.CategoryId == blog.CategoryId).Take(4).OrderByDescending(x=>x.CreatedAt).ToListAsync(),
+                Categories= await _context.Categories.Where(x=>!x.IsDeleted).Include(x=>x.Blogs).ToListAsync()
+                
             };
 
             return View(blogDetailVM);

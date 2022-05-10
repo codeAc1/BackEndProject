@@ -40,7 +40,7 @@ namespace Juan.Controllers
             _env = env;
         }
 
-        [Authorize(Roles = "Member")]
+        //[Authorize(Roles = "Member")]
         public async Task <IActionResult> MyAccount()
         {
             AppUser appUser = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name && !u.isAdmin);
@@ -256,7 +256,7 @@ namespace Juan.Controllers
                 }
             }
 
-            if ((await _userManager.GetRolesAsync(user))[0] == Roles.Admin.ToString())
+            if ((await _userManager.GetRolesAsync(user))[0] != Roles.Member.ToString())
             {
                 return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
             }

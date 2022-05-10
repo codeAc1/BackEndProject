@@ -1,4 +1,18 @@
-﻿<!DOCTYPE html>
+﻿
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<AppUser> userManager;
+@{
+
+
+    AppUser appUser = null;
+    if (User.Identity.IsAuthenticated)
+    {
+        appUser = userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+    }
+
+}
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -159,27 +173,6 @@
                 </div>
             </li>
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="~/admin/#" data-toggle="collapse" data-target="#collapseUtilities"
-                   aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                     data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="~/admin/utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="~/admin/utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="~/admin/utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="~/admin/utilities-other.html">Other</a>
-                    </div>
-                </div>
-            </li>
-
-
-
-
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -374,9 +367,23 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="~/admin/#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                     src="~/admin/img/undraw_profile.svg">
+                                @if (appUser != null)
+                                {
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">@appUser.Name @appUser.SurName</span>
+
+                                    if (appUser.Image != null)
+                                    {
+                                        <img class="img-profile rounded-circle" src="~/user/assets/img/usersImage/@appUser.Image">
+                                    }
+                                    else
+                                    {
+                                        <img class="img-profile rounded-circle" src="~/user/assets/img/usersImage/ImageEmpty.jpg">
+
+                                    }
+
+                                }
+
+
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -394,7 +401,7 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="~/admin/#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" asp-area="default" asp-action="Logout" asp-controller="Account">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>

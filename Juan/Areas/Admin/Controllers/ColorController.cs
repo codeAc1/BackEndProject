@@ -1,6 +1,7 @@
 ﻿using Juan.DAL;
 using Juan.Extensions;
 using Juan.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 namespace Juan.Areas.Admin.Controllers
 {
     [Area ("Admin")]
+    [Authorize(Roles = "Admin,Publisher,Manager")]
     public class ColorController : Controller
     {
         private readonly AppDbContext _context;
