@@ -19,8 +19,22 @@ using Juan.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\Areas\Admin\Views\_ViewImports.cshtml"
+using Juan.ViewModels;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "C:\Users\Admin\Desktop\Backend-Final\Juan\Juan\Areas\Admin\Views\_ViewImports.cshtml"
+using Juan.Helpers;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"65460c9d3e111b6f6245229c000c72464ac34e8e", @"/Areas/Admin/Views/Slider/Delete.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"af45701ee01965320a9e24ece545ae7da2349702", @"/Areas/Admin/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"005b99888b62003fd745f42f66d2567f35c36348", @"/Areas/Admin/Views/_ViewImports.cshtml")]
     public class Areas_Admin_Views_Slider_Delete : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<Slider>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("card-img-top"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -74,7 +88,7 @@ using Juan.Models;
             <div class=""card-img-top text-center py-3"">
                 <h5 class=""card-title font-weight-bold"">Slide Image</h5>
                 ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "65460c9d3e111b6f6245229c000c72464ac34e8e6266", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "65460c9d3e111b6f6245229c000c72464ac34e8e6641", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -124,7 +138,7 @@ AddHtmlAttributeValue("", 471, Model.ImageUrl, 471, 15, false);
 #line hidden
 #nullable disable
             WriteLiteral("\n\n            </div>\n\n\n            <div class=\"card-footer d-flex justify-content-between p-3 \">\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "65460c9d3e111b6f6245229c000c72464ac34e8e9295", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "65460c9d3e111b6f6245229c000c72464ac34e8e9670", async() => {
                 WriteLiteral("Go Back");
             }
             );
@@ -141,7 +155,7 @@ AddHtmlAttributeValue("", 471, Model.ImageUrl, 471, 15, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "65460c9d3e111b6f6245229c000c72464ac34e8e10548", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "65460c9d3e111b6f6245229c000c72464ac34e8e10923", async() => {
                 WriteLiteral("\n                    <button type=\"submit\" class=\"btn btn-danger\">Delete</button>\n                ");
             }
             );

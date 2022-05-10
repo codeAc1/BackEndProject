@@ -1,0 +1,116 @@
+﻿
+@model Order
+@{
+    ViewData["Title"] = "Index";
+    int count = 0;
+}
+<div class="row justify-content-between align-items-center">
+    <div class="col-lg-6 h3 mb-4 text-gray-800">
+        <h1>@Model.AppUser.Name @Model.AppUser.SurName -orders</h1>
+    </div>
+</div>
+
+
+<div class="row pb-5">
+    <div class="col-lg-12 tagTable">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" class="text-center">Image</th>
+                    <th scope="col" class="text-center">Title</th>
+                    <th scope="col" class="text-center">Count</th>
+                    <th scope="col" class="text-center">Price</th>
+                    <th scope="col" class="text-center">SubTotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (OrderItem order in Model.OrderItems)
+                {
+                    count++;
+                    <tr class="text-center">
+                        <th scope="row">@count</th>
+                        <td style="vertical-align: inherit; vertical-align: middle ">
+                            @if (order.Product.MainImage != null)
+                            {
+                                <div style="width:50%; display:inline-table">
+                                    <img class="img-fluid img-thumbnail" src="~/user/assets/img/product/@order.Product.MainImage" alt="Alternate Text" style="max-width:120px;max-height:120px; object-fit:contain " />
+                                </div>
+                            }
+                            else
+                            {
+                                <span class="text-danger">Empty</span>
+                            }
+                        </td>
+                        <td style="vertical-align: inherit">@order.Product.Title</td>
+                        <td style="vertical-align: inherit">$ @order.Price</td>
+                        <td style="vertical-align: inherit">@order.Count</td>
+                        <td style="vertical-align: inherit">$ @(order.Count*order.Price)</td>
+
+                    </tr>
+
+                }
+                <tr>
+
+                    <td colspan="5" class="text-right text-success" style="font-size:2rem;font-weight:600">
+                        Total Price:
+                    </td>
+                    <td class="text-left text-danger" style="font-size:2rem;font-weight:600">
+                        $ @Model.TotalPrice
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+    <div class="col-lg-12 d-flex pb-3 justify-content-center">
+        <form method="post" asp-action="Update" class="d-flex align-items-center">
+            <div class="form-group">
+                <label for="OrderStatus"></label>
+                <select class="form-control" id="orderStatus" name="OrderStatus">
+                    <option value="">Choose...</option>
+                    @foreach (var item in Enum.GetValues(typeof(Helper.OrderStatus)))
+                    {
+                        if (Model.Status == (Helper.OrderStatus)item)
+                        {
+                            <option selected value="@((int)item)">@item</option>
+                        }
+                        else
+                        {
+                            <option value="@((int)item)">@item</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success mx-3 mt-1">Applay</button>
+            </div>
+
+
+        </form>
+
+    </div>
+    <div class="col-lg-12">
+        <a asp-action="Index" class="btn btn-danger">Go Back</a>
+    </div>
+
+</div>
+
+@section Script{
+   
+}
+
+@section Style{
+    
+}
+
+
+
+
+
+
+
+
+
+

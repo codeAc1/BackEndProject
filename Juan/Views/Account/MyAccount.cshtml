@@ -81,7 +81,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach (Order order in Model.Orders)
+                                                        @foreach (Order order in Model.Orders.Where(o=>!o.IsDeleted))
                                                         {
                                                             <tr>
                                                                 <td>@orderCount</td>

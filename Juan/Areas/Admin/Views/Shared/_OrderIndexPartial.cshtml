@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Order>
+@{ int count = (ViewBag.PageIndex - 1) * 5; }
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="text-center">Name</th>
+            <th scope="col" class="text-center">Surname</th>
+            <th scope="col" class="text-center">Count</th>
+            <th scope="col" class="text-center">Price</th>
+            <th scope="col" class="text-center">Order Status</th>
+            <th scope="col" class="text-center">Delete Status</th>
+            <th scope="col" class="text-center">Setting</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Order order in Model)
+        {
+            count++;
+            <tr class="text-center">
+                <th scope="row">@count</th>
+                <td style="vertical-align: inherit">@order.AppUser.Name</td>
+                <td style="vertical-align: inherit">@order.AppUser.SurName</td>
+                <td style="vertical-align: inherit">@order.OrderItems.Count()</td>
+                <td style="vertical-align: inherit">$ @order.TotalPrice</td>
+                <td style="vertical-align: inherit">@order.Status</td>
+                <td style="color:@(order.IsDeleted ? "red":"green");vertical-align: inherit ">@(order.IsDeleted ? "DeActive":"Active")</td>
+
+
+                <td style="vertical-align: inherit ">
+
+                    <a class="btn btn-info" asp-action="Update" asp-route-id="@order.Id" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex">Update</a>
+                    @if (order.IsDeleted)
+                    {
+                        <a class="btn btn-success restoreOrder" asp-action="DeleteRestore" asp-route-id="@order.Id" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex">Restore</a>
+
+                    }
+                    else
+                    {
+                        <a class="btn btn-danger deleteOrder" asp-action="DeleteRestore" asp-route-id="@order.Id" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex">Delete</a>
+
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

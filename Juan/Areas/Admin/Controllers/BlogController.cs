@@ -76,6 +76,7 @@ namespace Juan.Areas.Admin.Controllers
 
             if (appUser == null)
             {
+                
                 ModelState.AddModelError("", "Siz Login Olmamisiz");
                 return View(blog);
             }
